@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package management;
+
+option go_package = "mdm.management.v1;managementv1";
+
+service Management {
+  rpc DeviceList(DeviceListRequest) returns (DeviceListResponse);
+  rpc GetDeviceStatus(DeviceStatusRequest) returns (DeviceStatusResponse);
+}
+
+message DeviceListRequest {
+  string somedata = 1;
+}
+
+message DeviceListResponse {
+  repeated string device_id = 1;
+}
+
+message DeviceStatusRequest {
+  string device_id = 1;
+}
+
+message DeviceStatusResponse {
+  bool success = 1;
+  optional string message = 2;
+}
