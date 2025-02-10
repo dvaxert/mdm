@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package management;
 
-option go_package = "mdm.management.v1;managementv1";
+option go_package = "dvaxert.management.v1;managementv1";
 
 service Management {
   rpc DeviceList(DeviceListRequest) returns (DeviceListResponse);

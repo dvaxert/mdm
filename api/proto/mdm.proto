@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package mdm;
 
-option go_package = "mdm.mdm.v1;mdmv1";
+option go_package = "dvaxert.mdm.v1;mdmv1";
 
 service Mdm {
   rpc DeviceRegister(DeviceRegisterRequest) returns (DeviceRegisterResponse);
