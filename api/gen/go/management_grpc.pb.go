@@ -19,139 +19,177 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Management_DeviceList_FullMethodName      = "/management.Management/DeviceList"
-	Management_GetDeviceStatus_FullMethodName = "/management.Management/GetDeviceStatus"
+	DeviceManagement_DeviceRegister_FullMethodName = "/management.DeviceManagement/DeviceRegister"
+	DeviceManagement_DevicePing_FullMethodName     = "/management.DeviceManagement/DevicePing"
+	DeviceManagement_DeviceState_FullMethodName    = "/management.DeviceManagement/DeviceState"
 )
 
-// ManagementClient is the client API for Management service.
+// DeviceManagementClient is the client API for DeviceManagement service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ManagementClient interface {
-	DeviceList(ctx context.Context, in *DeviceListRequest, opts ...grpc.CallOption) (*DeviceListResponse, error)
-	GetDeviceStatus(ctx context.Context, in *DeviceStatusRequest, opts ...grpc.CallOption) (*DeviceStatusResponse, error)
+type DeviceManagementClient interface {
+	DeviceRegister(ctx context.Context, in *DeviceRegisterRequest, opts ...grpc.CallOption) (*DeviceRegisterResponse, error)
+	DevicePing(ctx context.Context, in *DevicePingRequest, opts ...grpc.CallOption) (*DevicePingResponse, error)
+	DeviceState(ctx context.Context, in *DeviceStateRequest, opts ...grpc.CallOption) (*DeviceStateResponse, error)
 }
 
-type managementClient struct {
+type deviceManagementClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewManagementClient(cc grpc.ClientConnInterface) ManagementClient {
-	return &managementClient{cc}
+func NewDeviceManagementClient(cc grpc.ClientConnInterface) DeviceManagementClient {
+	return &deviceManagementClient{cc}
 }
 
-func (c *managementClient) DeviceList(ctx context.Context, in *DeviceListRequest, opts ...grpc.CallOption) (*DeviceListResponse, error) {
+func (c *deviceManagementClient) DeviceRegister(ctx context.Context, in *DeviceRegisterRequest, opts ...grpc.CallOption) (*DeviceRegisterResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeviceListResponse)
-	err := c.cc.Invoke(ctx, Management_DeviceList_FullMethodName, in, out, cOpts...)
+	out := new(DeviceRegisterResponse)
+	err := c.cc.Invoke(ctx, DeviceManagement_DeviceRegister_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *managementClient) GetDeviceStatus(ctx context.Context, in *DeviceStatusRequest, opts ...grpc.CallOption) (*DeviceStatusResponse, error) {
+func (c *deviceManagementClient) DevicePing(ctx context.Context, in *DevicePingRequest, opts ...grpc.CallOption) (*DevicePingResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeviceStatusResponse)
-	err := c.cc.Invoke(ctx, Management_GetDeviceStatus_FullMethodName, in, out, cOpts...)
+	out := new(DevicePingResponse)
+	err := c.cc.Invoke(ctx, DeviceManagement_DevicePing_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ManagementServer is the server API for Management service.
-// All implementations must embed UnimplementedManagementServer
+func (c *deviceManagementClient) DeviceState(ctx context.Context, in *DeviceStateRequest, opts ...grpc.CallOption) (*DeviceStateResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeviceStateResponse)
+	err := c.cc.Invoke(ctx, DeviceManagement_DeviceState_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// DeviceManagementServer is the server API for DeviceManagement service.
+// All implementations must embed UnimplementedDeviceManagementServer
 // for forward compatibility.
-type ManagementServer interface {
-	DeviceList(context.Context, *DeviceListRequest) (*DeviceListResponse, error)
-	GetDeviceStatus(context.Context, *DeviceStatusRequest) (*DeviceStatusResponse, error)
-	mustEmbedUnimplementedManagementServer()
+type DeviceManagementServer interface {
+	DeviceRegister(context.Context, *DeviceRegisterRequest) (*DeviceRegisterResponse, error)
+	DevicePing(context.Context, *DevicePingRequest) (*DevicePingResponse, error)
+	DeviceState(context.Context, *DeviceStateRequest) (*DeviceStateResponse, error)
+	mustEmbedUnimplementedDeviceManagementServer()
 }
 
-// UnimplementedManagementServer must be embedded to have
+// UnimplementedDeviceManagementServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedManagementServer struct{}
+type UnimplementedDeviceManagementServer struct{}
 
-func (UnimplementedManagementServer) DeviceList(context.Context, *DeviceListRequest) (*DeviceListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeviceList not implemented")
+func (UnimplementedDeviceManagementServer) DeviceRegister(context.Context, *DeviceRegisterRequest) (*DeviceRegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceRegister not implemented")
 }
-func (UnimplementedManagementServer) GetDeviceStatus(context.Context, *DeviceStatusRequest) (*DeviceStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceStatus not implemented")
+func (UnimplementedDeviceManagementServer) DevicePing(context.Context, *DevicePingRequest) (*DevicePingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DevicePing not implemented")
 }
-func (UnimplementedManagementServer) mustEmbedUnimplementedManagementServer() {}
-func (UnimplementedManagementServer) testEmbeddedByValue()                    {}
+func (UnimplementedDeviceManagementServer) DeviceState(context.Context, *DeviceStateRequest) (*DeviceStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceState not implemented")
+}
+func (UnimplementedDeviceManagementServer) mustEmbedUnimplementedDeviceManagementServer() {}
+func (UnimplementedDeviceManagementServer) testEmbeddedByValue()                          {}
 
-// UnsafeManagementServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ManagementServer will
+// UnsafeDeviceManagementServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to DeviceManagementServer will
 // result in compilation errors.
-type UnsafeManagementServer interface {
-	mustEmbedUnimplementedManagementServer()
+type UnsafeDeviceManagementServer interface {
+	mustEmbedUnimplementedDeviceManagementServer()
 }
 
-func RegisterManagementServer(s grpc.ServiceRegistrar, srv ManagementServer) {
-	// If the following call pancis, it indicates UnimplementedManagementServer was
+func RegisterDeviceManagementServer(s grpc.ServiceRegistrar, srv DeviceManagementServer) {
+	// If the following call pancis, it indicates UnimplementedDeviceManagementServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&Management_ServiceDesc, srv)
+	s.RegisterService(&DeviceManagement_ServiceDesc, srv)
 }
 
-func _Management_DeviceList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeviceListRequest)
+func _DeviceManagement_DeviceRegister_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceRegisterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ManagementServer).DeviceList(ctx, in)
+		return srv.(DeviceManagementServer).DeviceRegister(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Management_DeviceList_FullMethodName,
+		FullMethod: DeviceManagement_DeviceRegister_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManagementServer).DeviceList(ctx, req.(*DeviceListRequest))
+		return srv.(DeviceManagementServer).DeviceRegister(ctx, req.(*DeviceRegisterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Management_GetDeviceStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeviceStatusRequest)
+func _DeviceManagement_DevicePing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DevicePingRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ManagementServer).GetDeviceStatus(ctx, in)
+		return srv.(DeviceManagementServer).DevicePing(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Management_GetDeviceStatus_FullMethodName,
+		FullMethod: DeviceManagement_DevicePing_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManagementServer).GetDeviceStatus(ctx, req.(*DeviceStatusRequest))
+		return srv.(DeviceManagementServer).DevicePing(ctx, req.(*DevicePingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Management_ServiceDesc is the grpc.ServiceDesc for Management service.
+func _DeviceManagement_DeviceState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceManagementServer).DeviceState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeviceManagement_DeviceState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagementServer).DeviceState(ctx, req.(*DeviceStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// DeviceManagement_ServiceDesc is the grpc.ServiceDesc for DeviceManagement service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Management_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "management.Management",
-	HandlerType: (*ManagementServer)(nil),
+var DeviceManagement_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "management.DeviceManagement",
+	HandlerType: (*DeviceManagementServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "DeviceList",
-			Handler:    _Management_DeviceList_Handler,
+			MethodName: "DeviceRegister",
+			Handler:    _DeviceManagement_DeviceRegister_Handler,
 		},
 		{
-			MethodName: "GetDeviceStatus",
-			Handler:    _Management_GetDeviceStatus_Handler,
+			MethodName: "DevicePing",
+			Handler:    _DeviceManagement_DevicePing_Handler,
+		},
+		{
+			MethodName: "DeviceState",
+			Handler:    _DeviceManagement_DeviceState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -8,7 +8,7 @@ all: configure build
 proto:
 	mkdir -p ./api/gen/go
 	protoc \
-		-I api/proto/ api/proto/management.proto api/proto/mdm.proto \
+		-I api/proto/ api/proto/management.proto api/proto/control.proto \
 		--go_out=api/gen/go/ \
 		--go_opt=paths=source_relative \
 		--go-grpc_out=api/gen/go/ \

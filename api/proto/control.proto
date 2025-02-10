@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package control;
+
+option go_package = "dvaxert.control.v1;controlv1";
+
+service Control {
+  rpc DeviceList(DeviceListRequest) returns (DeviceListResponse);
+  rpc GetDeviceStatus(DeviceStatusRequest) returns (DeviceStatusResponse);
+}
+
+message DeviceListRequest {
+  string somedata = 1;
+}
+
+message DeviceListResponse {
+  repeated string device_id = 1;
+}
+
+message DeviceStatusRequest {
+  string device_id = 1;
+}
+
+message DeviceStatusResponse {
+  bool success = 1;
+  optional string message = 2;
+}

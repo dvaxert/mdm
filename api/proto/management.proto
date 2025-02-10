@@ -4,24 +4,33 @@ package management;
 
 option go_package = "dvaxert.management.v1;managementv1";
 
-service Management {
-  rpc DeviceList(DeviceListRequest) returns (DeviceListResponse);
-  rpc GetDeviceStatus(DeviceStatusRequest) returns (DeviceStatusResponse);
+service DeviceManagement {
+  rpc DeviceRegister(DeviceRegisterRequest) returns (DeviceRegisterResponse);
+  rpc DevicePing(DevicePingRequest) returns (DevicePingResponse);
+  rpc DeviceState(DeviceStateRequest) returns (DeviceStateResponse);
 }
 
-message DeviceListRequest {
-  string somedata = 1;
-}
-
-message DeviceListResponse {
-  repeated string device_id = 1;
-}
-
-message DeviceStatusRequest {
+message DeviceRegisterRequest {
   string device_id = 1;
 }
 
-message DeviceStatusResponse {
+message DeviceRegisterResponse {
   bool success = 1;
   optional string message = 2;
+}
+
+message DevicePingRequest {
+  string device_id = 1;
+}
+
+message DevicePingResponse {
+  bool state_changed = 1;
+}
+
+message DeviceStateRequest {
+  string somedata = 1;
+}
+
+message DeviceStateResponse {
+  string somedata = 1;
 }
