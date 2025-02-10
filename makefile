@@ -6,12 +6,17 @@ BUILD_DIR=bin
 all: configure build
 
 proto:
-	mkdir -p ./api/gen/go
-	protoc \
-		-I api/proto/ api/proto/management.proto api/proto/control.proto \
-		--go_out=api/gen/go/ \
+	mkdir -p ./api/gen/go/management ./api/gen/go/control
+	protoc -I=api/proto management.proto \
+		--go_out=api/gen/go/management \
 		--go_opt=paths=source_relative \
-		--go-grpc_out=api/gen/go/ \
+		--go-grpc_out=api/gen/go/management \
+		--go-grpc_opt=paths=source_relative
+		
+	protoc -I=api/proto control.proto \
+		--go_out=api/gen/go/control \
+		--go_opt=paths=source_relative \
+		--go-grpc_out=api/gen/go/control \
 		--go-grpc_opt=paths=source_relative
 
 configure:
