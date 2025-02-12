@@ -1,22 +1,19 @@
-package server
+package cli
 
 import (
 	"flag"
 	"os"
-	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type Config struct {
-	Env         string     `yaml:"env" env-default:"prod"` // local dev prod
-	StoragePath string     `yaml:"storage_path" env-required:"true"`
-	Grpc        GrpcConfig `yaml:"grpc" env-required:"true"`
+	Grpc GrpcConfig `yaml:"grpc" env-required:"true"`
 }
 
 type GrpcConfig struct {
-	Port    int           `yaml:"port"`
-	Timeout time.Duration `yaml:"timeout"`
+	Address string `yaml:"address"`
+	Port    string `yaml:"port"`
 }
 
 func MustLoadConfig() *Config {

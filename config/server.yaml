@@ -1,5 +1,5 @@
 env: local
-storage_path: "storage.db"
+storage_path: "bin/storage.db"
 grpc:
   port: 8080
-  timeout: 5s
+  

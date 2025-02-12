@@ -19,8 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Control_DeviceList_FullMethodName      = "/control.Control/DeviceList"
-	Control_GetDeviceStatus_FullMethodName = "/control.Control/GetDeviceStatus"
+	Control_DeviceList_FullMethodName            = "/control.Control/DeviceList"
+	Control_DeviceInfo_FullMethodName            = "/control.Control/DeviceInfo"
+	Control_DeviceStatus_FullMethodName          = "/control.Control/DeviceStatus"
+	Control_DeviceFeatures_FullMethodName        = "/control.Control/DeviceFeatures"
+	Control_DeviceInfoList_FullMethodName        = "/control.Control/DeviceInfoList"
+	Control_DeviceStatusList_FullMethodName      = "/control.Control/DeviceStatusList"
+	Control_DeviceFeaturesList_FullMethodName    = "/control.Control/DeviceFeaturesList"
+	Control_SetDeviceFeatureState_FullMethodName = "/control.Control/SetDeviceFeatureState"
 )
 
 // ControlClient is the client API for Control service.
@@ -28,7 +34,13 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ControlClient interface {
 	DeviceList(ctx context.Context, in *DeviceListRequest, opts ...grpc.CallOption) (*DeviceListResponse, error)
-	GetDeviceStatus(ctx context.Context, in *DeviceStatusRequest, opts ...grpc.CallOption) (*DeviceStatusResponse, error)
+	DeviceInfo(ctx context.Context, in *DeviceInfoRequest, opts ...grpc.CallOption) (*DeviceInfoResponse, error)
+	DeviceStatus(ctx context.Context, in *DeviceStatusRequest, opts ...grpc.CallOption) (*DeviceStatusResponse, error)
+	DeviceFeatures(ctx context.Context, in *DeviceFeaturesRequest, opts ...grpc.CallOption) (*DeviceFeaturesResponse, error)
+	DeviceInfoList(ctx context.Context, in *DeviceInfoListRequest, opts ...grpc.CallOption) (*DeviceInfoListResponse, error)
+	DeviceStatusList(ctx context.Context, in *DeviceStatusListRequest, opts ...grpc.CallOption) (*DeviceStatusListResponse, error)
+	DeviceFeaturesList(ctx context.Context, in *DeviceFeaturesListRequest, opts ...grpc.CallOption) (*DeviceFeaturesListResponse, error)
+	SetDeviceFeatureState(ctx context.Context, in *SetDeviceFeatureStateRequest, opts ...grpc.CallOption) (*SetDeviceFeatureStateResponse, error)
 }
 
 type controlClient struct {
@@ -49,10 +61,70 @@ func (c *controlClient) DeviceList(ctx context.Context, in *DeviceListRequest, o
 	return out, nil
 }
 
-func (c *controlClient) GetDeviceStatus(ctx context.Context, in *DeviceStatusRequest, opts ...grpc.CallOption) (*DeviceStatusResponse, error) {
+func (c *controlClient) DeviceInfo(ctx context.Context, in *DeviceInfoRequest, opts ...grpc.CallOption) (*DeviceInfoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeviceInfoResponse)
+	err := c.cc.Invoke(ctx, Control_DeviceInfo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *controlClient) DeviceStatus(ctx context.Context, in *DeviceStatusRequest, opts ...grpc.CallOption) (*DeviceStatusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeviceStatusResponse)
-	err := c.cc.Invoke(ctx, Control_GetDeviceStatus_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Control_DeviceStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *controlClient) DeviceFeatures(ctx context.Context, in *DeviceFeaturesRequest, opts ...grpc.CallOption) (*DeviceFeaturesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeviceFeaturesResponse)
+	err := c.cc.Invoke(ctx, Control_DeviceFeatures_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *controlClient) DeviceInfoList(ctx context.Context, in *DeviceInfoListRequest, opts ...grpc.CallOption) (*DeviceInfoListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeviceInfoListResponse)
+	err := c.cc.Invoke(ctx, Control_DeviceInfoList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *controlClient) DeviceStatusList(ctx context.Context, in *DeviceStatusListRequest, opts ...grpc.CallOption) (*DeviceStatusListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeviceStatusListResponse)
+	err := c.cc.Invoke(ctx, Control_DeviceStatusList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *controlClient) DeviceFeaturesList(ctx context.Context, in *DeviceFeaturesListRequest, opts ...grpc.CallOption) (*DeviceFeaturesListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeviceFeaturesListResponse)
+	err := c.cc.Invoke(ctx, Control_DeviceFeaturesList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *controlClient) SetDeviceFeatureState(ctx context.Context, in *SetDeviceFeatureStateRequest, opts ...grpc.CallOption) (*SetDeviceFeatureStateResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetDeviceFeatureStateResponse)
+	err := c.cc.Invoke(ctx, Control_SetDeviceFeatureState_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +136,13 @@ func (c *controlClient) GetDeviceStatus(ctx context.Context, in *DeviceStatusReq
 // for forward compatibility.
 type ControlServer interface {
 	DeviceList(context.Context, *DeviceListRequest) (*DeviceListResponse, error)
-	GetDeviceStatus(context.Context, *DeviceStatusRequest) (*DeviceStatusResponse, error)
+	DeviceInfo(context.Context, *DeviceInfoRequest) (*DeviceInfoResponse, error)
+	DeviceStatus(context.Context, *DeviceStatusRequest) (*DeviceStatusResponse, error)
+	DeviceFeatures(context.Context, *DeviceFeaturesRequest) (*DeviceFeaturesResponse, error)
+	DeviceInfoList(context.Context, *DeviceInfoListRequest) (*DeviceInfoListResponse, error)
+	DeviceStatusList(context.Context, *DeviceStatusListRequest) (*DeviceStatusListResponse, error)
+	DeviceFeaturesList(context.Context, *DeviceFeaturesListRequest) (*DeviceFeaturesListResponse, error)
+	SetDeviceFeatureState(context.Context, *SetDeviceFeatureStateRequest) (*SetDeviceFeatureStateResponse, error)
 	mustEmbedUnimplementedControlServer()
 }
 
@@ -78,8 +156,26 @@ type UnimplementedControlServer struct{}
 func (UnimplementedControlServer) DeviceList(context.Context, *DeviceListRequest) (*DeviceListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeviceList not implemented")
 }
-func (UnimplementedControlServer) GetDeviceStatus(context.Context, *DeviceStatusRequest) (*DeviceStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceStatus not implemented")
+func (UnimplementedControlServer) DeviceInfo(context.Context, *DeviceInfoRequest) (*DeviceInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceInfo not implemented")
+}
+func (UnimplementedControlServer) DeviceStatus(context.Context, *DeviceStatusRequest) (*DeviceStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceStatus not implemented")
+}
+func (UnimplementedControlServer) DeviceFeatures(context.Context, *DeviceFeaturesRequest) (*DeviceFeaturesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceFeatures not implemented")
+}
+func (UnimplementedControlServer) DeviceInfoList(context.Context, *DeviceInfoListRequest) (*DeviceInfoListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceInfoList not implemented")
+}
+func (UnimplementedControlServer) DeviceStatusList(context.Context, *DeviceStatusListRequest) (*DeviceStatusListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceStatusList not implemented")
+}
+func (UnimplementedControlServer) DeviceFeaturesList(context.Context, *DeviceFeaturesListRequest) (*DeviceFeaturesListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceFeaturesList not implemented")
+}
+func (UnimplementedControlServer) SetDeviceFeatureState(context.Context, *SetDeviceFeatureStateRequest) (*SetDeviceFeatureStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetDeviceFeatureState not implemented")
 }
 func (UnimplementedControlServer) mustEmbedUnimplementedControlServer() {}
 func (UnimplementedControlServer) testEmbeddedByValue()                 {}
@@ -120,20 +216,128 @@ func _Control_DeviceList_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Control_GetDeviceStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Control_DeviceInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ControlServer).DeviceInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Control_DeviceInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ControlServer).DeviceInfo(ctx, req.(*DeviceInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Control_DeviceStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeviceStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ControlServer).GetDeviceStatus(ctx, in)
+		return srv.(ControlServer).DeviceStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Control_GetDeviceStatus_FullMethodName,
+		FullMethod: Control_DeviceStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ControlServer).GetDeviceStatus(ctx, req.(*DeviceStatusRequest))
+		return srv.(ControlServer).DeviceStatus(ctx, req.(*DeviceStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Control_DeviceFeatures_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceFeaturesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ControlServer).DeviceFeatures(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Control_DeviceFeatures_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ControlServer).DeviceFeatures(ctx, req.(*DeviceFeaturesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Control_DeviceInfoList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceInfoListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ControlServer).DeviceInfoList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Control_DeviceInfoList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ControlServer).DeviceInfoList(ctx, req.(*DeviceInfoListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Control_DeviceStatusList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceStatusListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ControlServer).DeviceStatusList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Control_DeviceStatusList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ControlServer).DeviceStatusList(ctx, req.(*DeviceStatusListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Control_DeviceFeaturesList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceFeaturesListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ControlServer).DeviceFeaturesList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Control_DeviceFeaturesList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ControlServer).DeviceFeaturesList(ctx, req.(*DeviceFeaturesListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Control_SetDeviceFeatureState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetDeviceFeatureStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ControlServer).SetDeviceFeatureState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Control_SetDeviceFeatureState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ControlServer).SetDeviceFeatureState(ctx, req.(*SetDeviceFeatureStateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -150,8 +354,32 @@ var Control_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Control_DeviceList_Handler,
 		},
 		{
-			MethodName: "GetDeviceStatus",
-			Handler:    _Control_GetDeviceStatus_Handler,
+			MethodName: "DeviceInfo",
+			Handler:    _Control_DeviceInfo_Handler,
+		},
+		{
+			MethodName: "DeviceStatus",
+			Handler:    _Control_DeviceStatus_Handler,
+		},
+		{
+			MethodName: "DeviceFeatures",
+			Handler:    _Control_DeviceFeatures_Handler,
+		},
+		{
+			MethodName: "DeviceInfoList",
+			Handler:    _Control_DeviceInfoList_Handler,
+		},
+		{
+			MethodName: "DeviceStatusList",
+			Handler:    _Control_DeviceStatusList_Handler,
+		},
+		{
+			MethodName: "DeviceFeaturesList",
+			Handler:    _Control_DeviceFeaturesList_Handler,
+		},
+		{
+			MethodName: "SetDeviceFeatureState",
+			Handler:    _Control_SetDeviceFeatureState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

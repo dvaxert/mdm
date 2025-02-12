@@ -6,15 +6,31 @@ option go_package = "dvaxert.control.v1;controlv1";
 
 service Control {
   rpc DeviceList(DeviceListRequest) returns (DeviceListResponse);
-  rpc GetDeviceStatus(DeviceStatusRequest) returns (DeviceStatusResponse);
+
+  rpc DeviceInfo(DeviceInfoRequest) returns (DeviceInfoResponse);
+  rpc DeviceStatus(DeviceStatusRequest) returns (DeviceStatusResponse);
+  rpc DeviceFeatures(DeviceFeaturesRequest) returns (DeviceFeaturesResponse);
+  
+  rpc DeviceInfoList(DeviceInfoListRequest) returns (DeviceInfoListResponse);
+  rpc DeviceStatusList(DeviceStatusListRequest) returns (DeviceStatusListResponse);
+  rpc DeviceFeaturesList(DeviceFeaturesListRequest) returns (DeviceFeaturesListResponse);
+
+  rpc SetDeviceFeatureState(SetDeviceFeatureStateRequest) returns (SetDeviceFeatureStateResponse);
 }
 
 message DeviceListRequest {
-  string somedata = 1;
 }
 
 message DeviceListResponse {
   repeated string device_id = 1;
+}
+
+message DeviceInfoRequest {
+  string device_id = 1;
+}
+
+message DeviceInfoResponse {
+  int32 device_type = 1;
 }
 
 message DeviceStatusRequest {
@@ -22,6 +38,61 @@ message DeviceStatusRequest {
 }
 
 message DeviceStatusResponse {
+  string location = 1;
+  int32 battery = 2;
+}
+
+message DeviceFeaturesRequest {
+  string device_id = 1;
+}
+
+message DeviceFeaturesResponse {
+  map<string, bool> features = 1;
+}
+
+message DeviceInfoListRequest {
+}
+
+message DeviceInfoListItem {
+  string device_id = 1;
+  int32 device_type = 2;
+}
+
+message DeviceInfoListResponse {
+  repeated DeviceInfoListItem items = 1;
+}
+
+message DeviceStatusListRequest {
+}
+
+message DeviceStatusListItem {
+  string device_id = 1;
+  string location = 2;
+  int32 battery = 3;
+}
+
+message DeviceStatusListResponse {
+  repeated DeviceStatusListItem items = 1;
+}
+
+message DeviceFeaturesListRequest {
+}
+
+message DeviceFeaturesListItem {
+  string device_id = 1;
+  map<string, bool> features = 2;
+}
+
+message DeviceFeaturesListResponse {
+  repeated DeviceFeaturesListItem items = 1;
+}
+
+message SetDeviceFeatureStateRequest {
+  string device_id = 1;
+  string feature = 2;
+  bool state = 3; 
+}
+
+message SetDeviceFeatureStateResponse {
   bool success = 1;
-  optional string message = 2;
 }

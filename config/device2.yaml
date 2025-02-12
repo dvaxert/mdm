@@ -1,0 +1,9 @@
+env: local
+uuid: 33a0cf6e-2e7e-42f2-b14c-c31a5ac0204b
+device_type: 1
+ping_period: 5s
+location: Буэнос-Айрес (Аргентина)
+battery: 47
+grpc:
+  address: localhost
+  port: 8080

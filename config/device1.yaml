@@ -1,0 +1,9 @@
+env: local
+uuid: 1de44dce-0ce9-4fac-a761-26a803a6b5ca
+device_type: 0
+ping_period: 5s
+location: Осло (Норвегия)
+battery: 33
+grpc:
+  address: localhost
+  port: 8080

@@ -1,22 +1,27 @@
-package server
+package device
 
 import (
 	"flag"
 	"os"
 	"time"
 
+	"github.com/dvaxert/mdm/internal/domain/models"
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type Config struct {
-	Env         string     `yaml:"env" env-default:"prod"` // local dev prod
-	StoragePath string     `yaml:"storage_path" env-required:"true"`
-	Grpc        GrpcConfig `yaml:"grpc" env-required:"true"`
+	Env        string            `yaml:"env" env-default:"prod"` // local dev prod
+	Uuid       string            `yaml:"uuid" env-required:"true"`
+	DeviceType models.DeviceType `yaml:"device_type"`
+	Grpc       GrpcConfig        `yaml:"grpc" env-required:"true"`
+	PingPeriod time.Duration     `yaml:"ping_period" env-required:"true"`
+	Location   string            `yaml:"location" env-required:"true"`
+	Battery    int               `yaml:"battery" env-required:"true"`
 }
 
 type GrpcConfig struct {
-	Port    int           `yaml:"port"`
-	Timeout time.Duration `yaml:"timeout"`
+	Address string `yaml:"address"`
+	Port    string `yaml:"port"`
 }
 
 func MustLoadConfig() *Config {

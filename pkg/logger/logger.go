@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"fmt"
 	"log/slog"
 	"os"
 )
@@ -12,6 +13,15 @@ const (
 )
 
 func MustSetup(env string) *slog.Logger {
+	log, err := Setup(env)
+	if err != nil {
+		panic(err)
+	}
+
+	return log
+}
+
+func Setup(env string) (*slog.Logger, error) {
 	var handler slog.Handler
 
 	switch env {
@@ -22,8 +32,8 @@ func MustSetup(env string) *slog.Logger {
 	case envProd:
 		handler = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo})
 	default:
-		panic("неизвестное значение env при создании логгера")
+		return nil, fmt.Errorf("invalid env value passed to logger.Setup")
 	}
 
-	return slog.New(handler)
+	return slog.New(handler), nil
 }
